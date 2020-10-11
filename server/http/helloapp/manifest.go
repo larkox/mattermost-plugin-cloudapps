@@ -19,16 +19,19 @@ func (h *helloapp) handleManifest(w http.ResponseWriter, req *http.Request) {
 			AppID:       AppID,
 			DisplayName: AppDisplayName,
 			Description: AppDescription,
-			RootURL:     h.AppURL(""),
 			RequestedPermissions: []store.PermissionType{
 				store.PermissionUserJoinedChannelNotification,
 				store.PermissionActAsUser,
 				store.PermissionActAsBot,
 			},
+
 			Install: &store.Wish{
 				URL: h.AppURL(PathWishInstall),
 			},
-			OAuth2CallbackURL: h.AppURL(PathOAuth2Complete),
+
+			LocationsURL:      h.AppURL(PathLocations),
+			RootURL:           h.AppURL(""),
 			HomepageURL:       h.AppURL("/"),
+			OAuth2CallbackURL: h.AppURL(PathOAuth2Complete),
 		})
 }

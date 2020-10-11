@@ -8,13 +8,15 @@ type AppID string
 
 type Manifest struct {
 	AppID                AppID       `json:"app_id"`
-	OAuth2CallbackURL    string      `json:"oauth2_callback_url,omitempty"`
 	Description          string      `json:"description,omitempty"`
 	DisplayName          string      `json:"display_name,omitempty"`
-	HomepageURL          string      `json:"homepage_url,omitempty"`
 	Install              *Wish       `json:"install,omitempty"`
 	RequestedPermissions Permissions `json:"requested_permissions,omitempty"`
-	RootURL              string      `json:"root_url"`
+
+	RootURL           string `json:"root_url"`
+	HomepageURL       string `json:"homepage_url,omitempty"`
+	LocationsURL      string `json:"locations_url,omitempty"`
+	OAuth2CallbackURL string `json:"oauth2_callback_url,omitempty"`
 }
 
 type App struct {

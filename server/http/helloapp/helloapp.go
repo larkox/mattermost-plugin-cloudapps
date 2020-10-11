@@ -21,13 +21,15 @@ import (
 const AppSecret = "1234"
 
 const (
+	PathLocations               = "/locations"
 	PathManifest                = "/mattermost-app.json"
 	PathNotifyUserJoinedChannel = "/notify/" + string(store.SubjectUserJoinedChannel)
-	PathWishInstall             = "/wish/install"
-	PathWishConnectedInstall    = "/wish/connected_install"
-	PathWishPing                = "/wish/ping"
 	PathOAuth2                  = "/oauth2"
 	PathOAuth2Complete          = "/oauth2/complete" // /complete comes from OAuther
+	PathWishConnectedInstall    = "/wish/connected_install"
+	PathWishInstall             = "/wish/install"
+	PathWishPing                = "/wish/ping"
+	PathWishSample              = "/wish/sample"
 )
 
 type helloapp struct {
@@ -50,6 +52,8 @@ func Init(router *mux.Router, apps *apps.Service) {
 	subrouter.HandleFunc(PathWishInstall, wish(h.handleInstall)).Methods("POST")
 	subrouter.HandleFunc(PathWishConnectedInstall, wish(h.handleConnectedInstall)).Methods("POST")
 	subrouter.HandleFunc(PathWishPing, wish(h.handlePing)).Methods("POST")
+
+	subrouter.HandleFunc(PathLocations, CheckAuthentication(ExtractUserAndChannelID(h.HandleLocations))).Methods("GET")
 
 	_ = h.InitOAuther()
 }
